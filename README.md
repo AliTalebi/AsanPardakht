@@ -18,7 +18,7 @@ for Console App Scheduler what you need is only build and start the app (using v
 
 # Authorization
 
-basic authorization and default user and pass for calling apis: ali.talebi:123
+Basic Authorization and default value for calling apis: ali.talebi:123
 
 # Tests
 under development
