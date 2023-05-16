@@ -14,7 +14,7 @@ Onion, DDD, CQRS and Outbox pattern
 
 For address management build solution then apply migrations, set Api project as the stratup project, now you can run the app or publish it and move to anywhere you want to deploy, don't forget to install .NET 6 runtime in destination
 
-for Console App Scheduler what you need is only start the app (using visual studio or double click on .exe file), database will be created
+for Console App Scheduler what you need is only build and start the app (using visual studio or double click on .exe file), database will be created
 
 # Tests
 under development
