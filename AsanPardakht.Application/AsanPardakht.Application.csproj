@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AsanPardakht.Core.OutboxEvents\AsanPardakht.Core.OutboxEvents.csproj" />
+    <ProjectReference Include="..\AsanPardakht.Core\AsanPardakht.Core.csproj" />
+    <ProjectReference Include="..\AsanPardakht.Domain\AsanPardakht.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

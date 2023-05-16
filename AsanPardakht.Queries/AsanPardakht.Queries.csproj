@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="AutoMapper" Version="12.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\AsanPardakht.Core\AsanPardakht.Core.csproj" />
+		<ProjectReference Include="..\AsanPardakht.Queries.Infrastructure.DomainModel\AsanPardakht.Queries.Infrastructure.DomainModel.csproj" />
+		<ProjectReference Include="..\AsanPardakht.Queries.Persistence.EfCore\AsanPardakht.Queries.Persistence.EfCore.csproj" />
+	</ItemGroup>
+
+</Project>

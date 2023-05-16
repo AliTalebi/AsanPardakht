@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Autofac" Version="7.0.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.1.1" />
+		<PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="6.0.16" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\AsanPardakht.Core\AsanPardakht.Core.csproj" />
+	</ItemGroup>
+
+</Project>
