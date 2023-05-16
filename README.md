@@ -16,5 +16,9 @@ For address management build solution then apply migrations, set Api project as 
 
 for Console App Scheduler what you need is only build and start the app (using visual studio or double click on .exe file), database will be created
 
+# Authorization
+
+basic authorization and default user and pass for calling apis: ali.talebi:123
+
 # Tests
 under development
