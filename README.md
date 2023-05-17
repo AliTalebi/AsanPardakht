@@ -1,6 +1,6 @@
 # Runtime Elements
 
-## Address Manegement
+## Address Management
   In this element you register base information includes (Province, City and Person)
   
 ## Console App Scheduler
