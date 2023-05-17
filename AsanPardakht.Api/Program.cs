@@ -105,8 +105,8 @@ services.AddDbContext<QueryDbContext>(options =>
 
 services.AddSwaggerGen(config =>
 {
-    foreach (var item in Directory.EnumerateFiles(builder.Environment.ContentRootPath, "AsanPardakht.*.xml"))
-        config.IncludeXmlComments(item);
+    foreach (var item in Directory.EnumerateFiles(builder.Environment.ContentRootPath, builder.Environment.IsDevelopment() ? @"bin\AsanPardakht.*.xml" : "AsanPardakht.*.xml", SearchOption.AllDirectories))
+        config.IncludeXmlComments(item, true);
 
     config.SwaggerDoc("v1", new OpenApiInfo { Title = "BasicAuth", Version = "v1" });
     config.AddSecurityDefinition("basic", new OpenApiSecurityScheme

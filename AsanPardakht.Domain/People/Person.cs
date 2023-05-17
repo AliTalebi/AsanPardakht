@@ -88,6 +88,35 @@ namespace AsanPardakht.Domain.People
 
             return new Person(id, name, nationalCode);
         }
+        public async Task<OneOf<bool, Error>> UpdateAsync(string? name, string? nationalCode, IPersonExistByNationalCodeDomainService personDomainService, CancellationToken cancellationToken = default!)
+        {
+            if (ValueIsNullOrWhiteSpace(name))
+            {
+                return ApplicationErrors.People.NameIsRequired;
+            }
+
+            if (!EnsureNameIsAtMost100Characters(name))
+            {
+                return ApplicationErrors.People.NameMustBeAtMost100Characters;
+            }
+
+            if (!EnsureNationalCodeIsValid(nationalCode))
+            {
+                return ApplicationErrors.People.NationalCodeIsInvalid;
+            }
+
+            if (NationalCode != nationalCode && await IsNationalCodeExistAsync(nationalCode, personDomainService, cancellationToken))
+            {
+                return ApplicationErrors.People.NationalCodeAlreadyExist;
+            }
+
+            Name = name;
+            NationalCode = nationalCode;
+
+            AddEvent(new PersonChanged(Id, Name, NationalCode));
+
+            return true;
+        }
 
         #region validations
 
