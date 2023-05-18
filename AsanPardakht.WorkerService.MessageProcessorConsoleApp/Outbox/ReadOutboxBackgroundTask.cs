@@ -1,55 +1,68 @@
-﻿namespace AsanPardakht.WorkerService.MessageProcessorConsoleApp.Outbox
+﻿using Microsoft.Extensions.Logging;
+
+namespace AsanPardakht.WorkerService.MessageProcessorConsoleApp.Outbox
 {
-    public abstract class ReadOutboxBackgroundTask : IReadOutboxEventTask
-    {
-        private PeriodicTimer? _timer;
-        private Task? _timerTask = null;
-        private CancellationTokenSource _cancellationTokenSource = new();
+	public abstract class ReadOutboxBackgroundTask : IReadOutboxEventTask
+	{
+		private PeriodicTimer? _timer;
+		private Task? _timerTask = null;
+		protected readonly ILogger Logger;
+		private CancellationTokenSource _cancellationTokenSource = new();
 
-        public Task StartAsync()
-        {
-            _timer = new(TimeSpan.FromMilliseconds(5000));
+		protected ReadOutboxBackgroundTask(ILogger logger)
+		{
+			Logger = logger;
+		}
 
-            OnPrepare();
+		public Task StartAsync()
+		{
+			_timer = new(TimeSpan.FromMinutes(10));
 
-            _timerTask = ExecuteAsnc();
+			OnPrepare();
 
-            return Task.CompletedTask;
-        }
+			_timerTask = ExecuteAsnc();
 
-        public async Task StopAsync()
-        {
-            if (_timerTask == null)
-            {
-                return;
-            }
+			return Task.CompletedTask;
+		}
 
-            OnDestroying();
+		public async Task StopAsync()
+		{
+			if (_timerTask == null)
+			{
+				return;
+			}
 
-            _cancellationTokenSource.Cancel();
+			OnDestroying();
 
-            await _timerTask;
+			_cancellationTokenSource.Cancel();
 
-            _cancellationTokenSource.Dispose();
+			await _timerTask;
 
-        }
+			_cancellationTokenSource.Dispose();
 
-        private async Task ExecuteAsnc()
-        {
-            try
-            {
-                while (await _timer!.WaitForNextTickAsync(_cancellationTokenSource.Token))
-                {
-                    await OnExecuteAsync(_cancellationTokenSource.Token);
-                }
-            }
-            catch (OperationCanceledException ex)
-            {
-            }
-        }
+		}
 
-        protected abstract void OnPrepare();
-        protected abstract void OnDestroying();
-        protected abstract Task OnExecuteAsync(CancellationToken cancellationToken);
-    }
+		private async Task ExecuteAsnc()
+		{
+			try
+			{
+				while (await _timer!.WaitForNextTickAsync(_cancellationTokenSource.Token))
+				{
+					await OnExecuteAsync(_cancellationTokenSource.Token);
+				}
+			}
+			catch (OperationCanceledException ex)
+			{
+				Logger.LogError(ex, "ExecuteAsync method was cancelled");
+			}
+			catch (Exception ex)
+			{
+				Logger.LogError(ex, "unhanled exception occurred in ExecuteAsync method");
+			}
+		}
+
+		protected abstract void OnPrepare();
+		protected abstract void OnDestroying();
+		protected abstract Task OnExecuteAsync(CancellationToken cancellationToken);
+	}
 }
